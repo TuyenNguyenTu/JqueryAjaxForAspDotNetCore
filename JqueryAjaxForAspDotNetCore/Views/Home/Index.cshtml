@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section Scripts{ 
+    <script src="~/plugins/mustache.min.js"></script>
+    <script src="~/controllers/homeController.js"></script>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Status</td>
+        </tr>
+    </thead>
+    <tbody id="tblData">
+           
+    </tbody>
+</table>
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td>{{ID}}</td>
+        <td>{{Name}}</td>
+        <td><input value="{{Age}}" type="number" data-id="{{ID}}" class="txtAge" /></td>
+        <td>{{{Status}}}</td>
+    </tr>
+</script>

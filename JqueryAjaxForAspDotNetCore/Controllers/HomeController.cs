@@ -21,12 +21,14 @@ namespace JqueryAjaxForAspDotNetCore.Controllers
         {
             return View();
         }
-        public JsonResult LoadData()
+        public JsonResult LoadData(int page = 1, int pageSize = 5)
         {
-            List<Employee> listEmp = context.Employees.ToList();
+            List<Employee> listEmp = context.Employees.Skip((page-1)*pageSize).Take(pageSize).ToList();
+            var totalRow = listEmp.Count;
             return Json(new
             {
                 data = listEmp,
+                total = totalRow,
                 status = true
             });
         }

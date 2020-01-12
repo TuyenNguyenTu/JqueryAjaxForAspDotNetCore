@@ -1,4 +1,10 @@
-﻿var homeController = {
+﻿/// <reference path="../plugins/jquery.twbspagination.min.js" />
+
+var homeConfig =  {
+    pageSize: 5,
+    pageIndex:1
+}
+var homeController = {
     init: function () {
         homeController.loadData();
         homeController.registerEvent();
@@ -6,8 +12,12 @@
 
     loadData: function () {
         $.ajax({
-            type: "GET",
             url: "Home/LoadData",
+            type: "GET",
+            data: {
+                page: homeConfig.pageIndex,
+                pageSize: homeController.pageSize
+            },
             dataType: "JSON",
             success: function (response) {
                 if (response.status) {
@@ -23,7 +33,9 @@
                         });
                     });
                     $("#tblData").html(htmldata);
-
+                    homeController.paging(response.total, function () {
+                        homeController.loadData();
+                    });
                 }
             }
         });
@@ -59,5 +71,16 @@
             }
         });
     },
+    paging: function (totalRow, callback) {
+        var totalPage = Math.ceil(totalRow / homeConfig.pageSize);
+        $("#pagination").twbsPagination({
+            totalPages: totalPage,
+            visiblePages: 5,
+            onPageClick: function (event, page) {
+                homeConfig.pageIndex = page;
+                setTimeout(callback, 200);
+            }
+        });
+    }
 }
 homeController.init();

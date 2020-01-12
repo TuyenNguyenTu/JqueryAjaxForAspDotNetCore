@@ -1,8 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@section Scripts{ 
+@section Scripts{
     <script src="~/plugins/mustache.min.js"></script>
+    <script src="~/plugins/jquery.twbsPagination.min.js"></script>
     <script src="~/controllers/homeController.js"></script>
 }
 <table class="table">
@@ -14,10 +15,11 @@
             <td>Status</td>
         </tr>
     </thead>
-    <tbody id="tblData">
-           
-    </tbody>
+    <tbody id="tblData"></tbody>
 </table>
+<div id="pagination" class="pagination">
+
+</div>
 <script id="data-template" type="x-tmpl-mustache">
     <tr>
         <td>{{ID}}</td>
